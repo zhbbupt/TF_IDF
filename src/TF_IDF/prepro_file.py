@@ -8,7 +8,10 @@ import os
 from str_replace import str_replace
 from TF_IDF.StrToUni import StrToUni
 import GrobalParament
-def prepro_file(fl_in_url,re_out_url,*wd_be_re):
+from full_word_cut import fullcut
+from half_word_cut import halfcut
+from UniToStr import UniToStr
+def prepro_file(fl_in_url,re_out_url,*wd_be_del):
     in_url=fl_in_url.replace('\\','/')
     out_url=re_out_url.replace('\\','/')
     try:
@@ -28,7 +31,21 @@ def prepro_file(fl_in_url,re_out_url,*wd_be_re):
             if os.path.isfile(afile_url):
                 afile=open(afile_url,"r")
                 content_temp=afile.readlines()
-                content=str_replace(content_temp, '',*wd_be_re)
-                con_unicode=StrToUni(content,GrobalParament.CodeFormatList)
+                if  wd_be_del:
+                    content=str_replace(content_temp, '',"\t","\n"," ")#删除某些特殊字符如\t,\n等以保证是一行的连续的
+                else:
+                    content=str_replace(content_temp,wd_be_del)
+                con_unicode=StrToUni(content,GrobalParament.InputFormatList)
+                if GrobalParament.pattern=="full":
+                    cut_result=fullcut(con_unicode)
+                else:
+                    cut_result=halfcut(con_unicode)
+                s_fl_Name=UniToStr(file,GrobalParament.OutputFormatList)
+                re_out.write(s_fl_Name+'\t')
+                for key_word in cut_result:
+                    s_key_word=UniToStr(key_word,GrobalParament.OutputFormatList)
+                    re_out.write(s_fl_Name+';')
+                re_out.write('\n')
+                
                 
         

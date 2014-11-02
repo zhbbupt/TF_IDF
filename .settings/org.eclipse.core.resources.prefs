@@ -1,6 +1,7 @@
 eclipse.preferences.version=1
 encoding//src/TF_IDF/GrobalParament.py=utf-8
 encoding//src/TF_IDF/StrToUni.py=utf-8
+encoding//src/TF_IDF/UniToStr.py=utf-8
 encoding//src/TF_IDF/full_word_cut.py=utf-8
 encoding//src/TF_IDF/half_word_cut.py=utf-8
 encoding//src/TF_IDF/prepro_file.py=utf-8
